@@ -1,15 +1,4 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native'
-
+import HomeScreenNav from "./Screen/homeScreen/HomeScreenNav";
 export default function App() {
-  return (
-    <View style={styles.container}>
-       <Text>duclam</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+  return <HomeScreenNav />;
 }
-
-const styles = StyleSheet.create({
-  
-});
