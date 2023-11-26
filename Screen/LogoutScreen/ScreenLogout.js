@@ -2,9 +2,16 @@ import { View, Text, Image } from "react-native";
 import Styles from "./StylesLogout";
 import { SafeAreaView, TextInput, TouchableOpacity } from "react-native-web";
 
-const ScreenLogout = () => {
+const ScreenLogout = ({ navigation }) => {
   return (
     <SafeAreaView style={Styles.container}>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.goBack();
+        }}
+      >
+        <Image source={require("../../img/goback1.png")} style={Styles.img1} />
+      </TouchableOpacity>
       <TouchableOpacity style={Styles.container1}>
         <View style={Styles.container2}>
           <Text style={Styles.txt1}> Tạp Hóa Nụ Cười </Text>
@@ -36,7 +43,12 @@ const ScreenLogout = () => {
         </View>
       </View>
       <View style={Styles.container5}>
-        <TouchableOpacity style={Styles.container51}>
+        <TouchableOpacity
+          style={Styles.container51}
+          onPress={() => {
+            navigation.navigate("StartedScreen");
+          }}
+        >
           <View style={Styles.container52}>
             <Text style={Styles.txt5}>Đăng Xuất</Text>
           </View>

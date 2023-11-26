@@ -9,13 +9,15 @@ import ScreenLogout from "../Screen/LogoutScreen/ScreenLogout";
 import ScreenSetting from "../Screen/settingScreen/ScreenSetting";
 import ScreenSlacking from "../Screen/slackingScreen/ScreenSlacking";
 import ScreenCreateVideo from "../Screen/CreateVideoScreen/ScreenCreateVideo";
+import ScreenNotification from "../Screen/NotificationScreen/ScreenNotification";
+import ScreenMessage from "../Screen/messageScreen/ScreenMessage";
 const Stack = createNativeStackNavigator();
 
 export default function RootApp() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="HomeScreenNav"
+        initialRouteName="StartedScreen"
         screenOptions={{ headerShown: false }}
       >
         <Stack.Screen name="LoginScreen" component={ScreenLogin} />
@@ -27,6 +29,11 @@ export default function RootApp() {
         <Stack.Screen name="SettingScreen" component={ScreenSetting} />
         <Stack.Screen name="SlackingScreen" component={ScreenSlacking} />
         <Stack.Screen name="ScreenCreateVideo" component={ScreenCreateVideo} />
+        <Stack.Screen name="ScreenMessage" component={ScreenMessage} />
+        <Stack.Screen
+          name="ScreenNotification"
+          component={ScreenNotification}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

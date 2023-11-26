@@ -41,6 +41,7 @@ const StylesSceenRegister = StyleSheet.create({
     width: 250,
     backgroundColor: "#FFF",
     borderRadius: 20,
+    paddingLeft: 15,
   },
   container3_1: {
     marginTop: 20,
@@ -76,6 +77,11 @@ const StylesSceenRegister = StyleSheet.create({
     fontSize: 18,
     fontFamily: "Roboto",
     color: "#FFF",
+  },
+  img1: {
+    height: 24,
+    width: 24,
+    tintColor: "#000",
   },
 });
 

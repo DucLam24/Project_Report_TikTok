@@ -3,6 +3,9 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 // import { NavigationContainer } from "@react-navigation/native";
 import ScreenViewer from "../viewerScreen/ScreenViewer";
 import HomeScreen from "./homeScreen";
+import ScreenCreateVideo from "../CreateVideoScreen/ScreenCreateVideo";
+import ScreenNotification from "../NotificationScreen/ScreenNotification";
+import ScreenMessage from "../messageScreen/ScreenMessage";
 const BottomTab = createBottomTabNavigator();
 
 export default function HomeScreenNav({ navigation }) {
@@ -33,7 +36,7 @@ export default function HomeScreenNav({ navigation }) {
 
       <BottomTab.Screen
         name="Discover"
-        component={HomeScreen}
+        component={ScreenNotification}
         options={{
           tabBarIcon: ({ focused }) => (
             <Image
@@ -49,7 +52,7 @@ export default function HomeScreenNav({ navigation }) {
       {/* <TouchableOpacity> */}
       <BottomTab.Screen
         name="NewVideo"
-        component={HomeScreen}
+        component={ScreenCreateVideo}
         options={{
           tabBarLabel: () => null,
           tabBarIcon: ({ focused }) => (
@@ -66,7 +69,7 @@ export default function HomeScreenNav({ navigation }) {
       {/* </TouchableOpacity> */}
       <BottomTab.Screen
         name="Inbox"
-        component={HomeScreen}
+        component={ScreenMessage}
         options={{
           tabBarIcon: ({ focused }) => (
             <Image

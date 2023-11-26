@@ -1,19 +1,19 @@
-import { Animated, Easing, StyleSheet } from "react-native";
-import React, { useCallback, useEffect, useRef } from "react";
+import { Animated, Easing, StyleSheet, TouchableOpacity } from "react-native";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 // import Video from "react-native-video";
-import { Video, resizeMode } from "expo-av";
+import { ResizeMode, Video, resizeMode } from "expo-av";
 import { Image, SafeAreaView, Text, View } from "react-native-web";
 import { windowHeight, windowWidth } from "./constants";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 const VideoItem = ({ data, isActive }) => {
   const { uri, caption, channelName, musicName, likes, comments, avatarUri } =
     data;
+
+  const s = false;
+  const [status, setStatus] = useState(s);
   const discAnimatedValue = useRef(new Animated.Value(0)).current;
   const mucsicNoteAnimatedValue1 = useRef(new Animated.Value(0)).current;
   const mucsicNoteAnimatedValue2 = useRef(new Animated.Value(0)).current;
-
-  const discAnimaLoopRef = useRef();
-  const musicAnimaLoopRef = useRef();
 
   const discAnimation = {
     transform: [
@@ -46,12 +46,6 @@ const VideoItem = ({ data, isActive }) => {
           outputRange: ["0deg", "45deg"],
         }),
       },
-      // {
-      //   // opacity: mucsicNoteAnimatedValue1.interpolate({
-      //   //   inputRange: [0, 0.8, 1],
-      //   //   outputRange: [0, 1, 0],
-      //   // }),
-      // },
     ],
   };
 
@@ -75,44 +69,8 @@ const VideoItem = ({ data, isActive }) => {
           outputRange: ["0deg", "-45deg"],
         }),
       },
-      // {
-      //   opacity: mucsicNoteAnimatedValue2.interpolate({
-      //     inputRange: [0, 0.8, 1],
-      //     outputRange: [0, 1, 0],
-      //   }),
-      // },
     ],
   };
-
-  const triggerAnimation = useCallback(() => {
-    discAnimaLoopRef.current = Animated.loop(
-      Animated.timing(discAnimatedValue, {
-        toValue: 1,
-        duration: 3000,
-        easing: Easing.linear,
-        useNativeDriver: false,
-      })
-    );
-    discAnimaLoopRef.current.start();
-    musicAnimaLoopRef.current = Animated.loop(
-      Animated.sequence([
-        Animated.timing(mucsicNoteAnimatedValue1, {
-          toValue: 1,
-          duration: 1000,
-          easing: Easing.linear,
-          useNativeDriver: false,
-        }),
-        Animated.timing(mucsicNoteAnimatedValue2, {
-          toValue: 1,
-          duration: 1000,
-          easing: Easing.linear,
-          useNativeDriver: false,
-        }),
-      ])
-    );
-
-    musicAnimaLoopRef.current.start();
-  }, [discAnimatedValue, mucsicNoteAnimatedValue1, mucsicNoteAnimatedValue2]);
 
   useEffect(() => {
     Animated.loop(
@@ -123,7 +81,7 @@ const VideoItem = ({ data, isActive }) => {
         useNativeDriver: false,
       })
     ).start();
-    musicAnimaLoopRef.current = Animated.loop(
+    Animated.loop(
       Animated.sequence([
         Animated.timing(mucsicNoteAnimatedValue1, {
           toValue: 1,
@@ -156,11 +114,10 @@ const VideoItem = ({ data, isActive }) => {
             // { resizeMode: "contain" },
           ]}
           useNativeControls
-          // isLooping
-          // resizeMode={ResizeMode.CONTAIN}
+          isLooping
+          resizeMode={ResizeMode.COVER}
           paused={!isActive}
         />
-        //{" "}
       </View>
       <View style={styles.bottomSection}>
         <View style={styles.bottomLeftSection}>
@@ -201,10 +158,19 @@ const VideoItem = ({ data, isActive }) => {
         </View>
 
         <View style={styles.verticalBarItem}>
-          <Image
-            style={styles.verticalBarIcon}
-            source={require("../img/heart.png")}
-          />
+          <TouchableOpacity
+            onPress={() => {
+              setStatus(!status);
+            }}
+          >
+            <Image
+              style={[
+                styles.verticalBarIcon1,
+                status ? styles.tinColorI : styles.tinColorI1,
+              ]}
+              source={require("../img/heart.png")}
+            />
+          </TouchableOpacity>
           <Text style={styles.verticalBarText}>{likes}</Text>
         </View>
 
@@ -319,6 +285,16 @@ const styles = StyleSheet.create({
     height: 16,
     right: 40,
     bottom: 16,
+  },
+  verticalBarIcon1: {
+    width: 40,
+    height: 40,
+  },
+  tinColorI: {
+    tintColor: "#FF3300",
+  },
+  tinColorI1: {
+    tintColor: "#FFF",
   },
 });
 

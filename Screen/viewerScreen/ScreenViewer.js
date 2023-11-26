@@ -2,18 +2,31 @@ import { View, Text, Image } from "react-native";
 import Styles from "./StylesViewer";
 import { SafeAreaView, TextInput, TouchableOpacity } from "react-native-web";
 
-const ScreenViewer = () => {
+const ScreenViewer = ({ navigation }) => {
   return (
     <SafeAreaView style={Styles.container}>
-      <TouchableOpacity style={Styles.container1}>
-        <View style={Styles.container2}>
+      <View style={Styles.container1}>
+        <TouchableOpacity
+          style={Styles.container2}
+          onPress={() => {
+            navigation.goBack();
+          }}
+        >
+          <Image source={require("../../img/goback1.png")} style={Styles.img} />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={Styles.container2}
+          onPress={() => {
+            navigation.navigate("SettingScreen");
+          }}
+        >
           <Image
-            source={require("../../img/goback1.png")}
-            style={Styles.img}
-          ></Image>
-          <Text style={Styles.txt1}> Tạp Hóa Nụ Cười </Text>
-        </View>
-      </TouchableOpacity>
+            source={require("../../img/setting.png")}
+            style={Styles.img1}
+          />
+        </TouchableOpacity>
+      </View>
+      <Text style={Styles.txt1}> Tạp Hóa Nụ Cười </Text>
       <View style={Styles.container3}>
         <Image
           style={Styles.img2}
