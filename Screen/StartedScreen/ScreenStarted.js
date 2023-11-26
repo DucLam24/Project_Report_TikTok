@@ -2,7 +2,7 @@ import { View, Image, Text, SafeAreaView } from "react-native";
 import Styles from "./StylesStarted";
 import { TouchableOpacity } from "react-native-web";
 
-const ScreenStarted = () => {
+const ScreenStarted = ({ navigation }) => {
   return (
     <SafeAreaView style={Styles.container}>
       <View style={Styles.container1}>
@@ -16,7 +16,12 @@ const ScreenStarted = () => {
       </View>
 
       <View style={Styles.container3}>
-        <TouchableOpacity style={Styles.container3_1}>
+        <TouchableOpacity
+          style={Styles.container3_1}
+          onPress={() => {
+            navigation.navigate("LoginScreen");
+          }}
+        >
           <Text style={Styles.text02}>Started</Text>
         </TouchableOpacity>
       </View>

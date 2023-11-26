@@ -1,7 +1,7 @@
 import { Animated, Easing, StyleSheet } from "react-native";
 import React, { useCallback, useEffect, useRef } from "react";
 // import Video from "react-native-video";
-import { ResizeMode, Video, resizeMode } from "expo-av";
+import { Video, resizeMode } from "expo-av";
 import { Image, SafeAreaView, Text, View } from "react-native-web";
 import { windowHeight, windowWidth } from "./constants";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
@@ -113,23 +113,6 @@ const VideoItem = ({ data, isActive }) => {
 
     musicAnimaLoopRef.current.start();
   }, [discAnimatedValue, mucsicNoteAnimatedValue1, mucsicNoteAnimatedValue2]);
-  // useEffect(() => {
-  //   if (isActive) {
-  //     triggerAnimation();
-  //   } else {
-  //     discAnimaLoopRef.current?.stop();
-  //     musicAnimaLoopRef.current?.stop();
-  //     discAnimatedValue.setValue(0);
-  //     mucsicNoteAnimatedValue1.setValue(0);
-  //     mucsicNoteAnimatedValue2.setValue(0);
-  //   }
-  // }, [
-  //   isActive,
-  //   triggerAnimation,
-  //   discAnimatedValue,
-  //   mucsicNoteAnimatedValue1,
-  //   mucsicNoteAnimatedValue2,
-  // ]);
 
   useEffect(() => {
     Animated.loop(
@@ -140,7 +123,6 @@ const VideoItem = ({ data, isActive }) => {
         useNativeDriver: false,
       })
     ).start();
-    // discAnimaLoopRef.current.start();
     musicAnimaLoopRef.current = Animated.loop(
       Animated.sequence([
         Animated.timing(mucsicNoteAnimatedValue1, {
@@ -157,27 +139,29 @@ const VideoItem = ({ data, isActive }) => {
         }),
       ])
     ).start();
-
-    // musicAnimaLoopRef.current.start();
   }, [discAnimatedValue, mucsicNoteAnimatedValue1, mucsicNoteAnimatedValue2]);
   const bottomTabHeight = useBottomTabBarHeight();
-  // const statusBarHeight = StatusBar.currentHeight || 0;
 
   return (
     <SafeAreaView
       style={[styles.container, { height: windowHeight - bottomTabHeight }]}
     >
-      <Video
-        source={{ uri }}
-        style={[
-          styles.video,
-          { height: windowHeight - bottomTabHeight },
-          // { resizeMode: "contain" },
-        ]}
-        useNativeControls
-        isLooping
-        resizeMode={ResizeMode.CONTAIN}
-      />
+      <View>
+        <Video
+          source={{ uri }}
+          shouldPlay={isActive}
+          style={[
+            styles.video,
+            { height: windowHeight - bottomTabHeight },
+            // { resizeMode: "contain" },
+          ]}
+          useNativeControls
+          // isLooping
+          // resizeMode={ResizeMode.CONTAIN}
+          paused={!isActive}
+        />
+        //{" "}
+      </View>
       <View style={styles.bottomSection}>
         <View style={styles.bottomLeftSection}>
           <Text style={styles.channelName}>{channelName}</Text>
@@ -205,7 +189,6 @@ const VideoItem = ({ data, isActive }) => {
           />
         </View>
       </View>
-
       <View style={styles.verticalBar}>
         <View style={[styles.verticalBarItem, styles.avatarContainer]}>
           <Image style={styles.avatar} source={{ uri: avatarUri }} />
@@ -248,10 +231,11 @@ const VideoItem = ({ data, isActive }) => {
 const styles = StyleSheet.create({
   container: {
     width: windowWidth,
+    resizeMode: "cover",
   },
   video: {
     position: "absolute",
-    width: "100%",
+    width: windowWidth,
     // height: 700,
     // resizeMode: "cover",
   },

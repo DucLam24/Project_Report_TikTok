@@ -1,20 +1,26 @@
 import { View, Text, Image } from "react-native";
 import Style from "./style.js";
 import { SafeAreaView, TextInput, TouchableOpacity } from "react-native-web";
-import { account } from "../../component/constants.js";
-import { useState } from "react";
+// import { data } from "../../component/constants.js";
+import { useEffect, useState } from "react";
 
-const ScreenLogin = () => {
+const ScreenLogin = ({ navigation }) => {
   const [errorCheckLogin, setErrorCheckLogin] = useState("");
+  const [data, setData] = useState([]);
   const [userName, setUserName] = useState("");
   const [passWord, setPassWord] = useState("");
   const [eyeClick, setEyeClick] = useState(true);
+
+  useEffect(() => {
+    fetch("https://6562deebee04015769a69d00.mockapi.io/user")
+      .then((response) => response.json())
+      .then((json) => setData(json))
+      .catch((error) => console.error(error));
+  }, []);
+
   const checkLogin = (accounts, password) => {
-    for (let i = 0; i < account.length; i++) {
-      if (
-        account[i].userName === accounts &&
-        account[i].password === password
-      ) {
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].account === accounts && data[i].password === password) {
         return true;
       }
     }
@@ -36,7 +42,6 @@ const ScreenLogin = () => {
       <View style={Style.container03}>
         <Image style={Style.logoUser} source={require("../../img/user.png")} />
         <View style={Style.container3_1}>
-          {/* <Text style={Style.text02}>Tên đăng nhâp</Text> */}
           <TextInput
             style={Style.btn01}
             onChangeText={(txt) => setUserName(txt)}
@@ -46,7 +51,6 @@ const ScreenLogin = () => {
         </View>
         <Image style={Style.logoLock} source={require("../../img/lock.png")} />
         <View style={Style.container3_1}>
-          {/* <Text style={Style.text02}>Mật khẩu</Text> */}
           <TouchableOpacity
             onPress={() => {
               setEyeClick(!eyeClick);
@@ -72,7 +76,7 @@ const ScreenLogin = () => {
           style={Style.button1}
           onPress={() => {
             checkLogin(userName, passWord)
-              ? setErrorCheckLogin("login successful")
+              ? navigation.navigate("HomeScreenNav")
               : setErrorCheckLogin("Login fail");
           }}
         >
@@ -82,7 +86,12 @@ const ScreenLogin = () => {
       </View>
 
       <View>
-        <TouchableOpacity style={Style.container05}>
+        <TouchableOpacity
+          style={Style.container05}
+          onPress={() => {
+            navigation.navigate("RegisterScreen");
+          }}
+        >
           <Text style={Style.text04}>Bạn chưa có tài khoản?</Text>
           <Text style={Style.text05}> Đăng ký</Text>
         </TouchableOpacity>
