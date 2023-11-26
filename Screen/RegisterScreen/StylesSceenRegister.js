@@ -3,6 +3,7 @@ import { StyleSheet } from "react-native";
 const StylesSceenRegister = StyleSheet.create({
   container: {
     backgroundColor: "#ADA3A3",
+    height: "100%",
   },
   container01: {
     justifyContent: "center",
@@ -15,9 +16,9 @@ const StylesSceenRegister = StyleSheet.create({
   container03: {},
   container04: {},
   image: {
-    width: 180,
-    height: 180,
-    marginLeft: 75,
+    width: 150,
+    height: 150,
+    marginLeft: 100,
     resizeMode: "contain",
   },
   text01: {
@@ -34,7 +35,7 @@ const StylesSceenRegister = StyleSheet.create({
     fontSize: 20,
     fontWeight: 400,
     color: "#000",
-    margin: 10,
+    margin: 5,
   },
   btn01: {
     height: 40,
