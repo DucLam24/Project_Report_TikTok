@@ -6,116 +6,64 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-
+import { useEffect, useState } from "react";
+import { FlatList } from "react-native-web";
 const ScreenNotification = ({ navigation }) => {
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    fetch("https://6562deebee04015769a69d00.mockapi.io/user")
+      .then((response) => response.json())
+      .then((json) => {
+        // console.log(json);
+        setData(json);
+      });
+  }, []);
+  
   return (
-    <SafeAreaView style={Styles.container}>
+    <SafeAreaView style={styles.container}>
       <TouchableOpacity
-        style={Styles.container1}
+        style={styles.container1}
         onPress={() => {
           navigation.goBack();
         }}
       >
-        <Image source={require("../../img/goback1.png")} style={Styles.img1} />
+        <Image source={require("../../img/goback1.png")} style={styles.img1} />
       </TouchableOpacity>
-      <View style={Styles.container2}>
-        <Text style={Styles.text1}>Thông báo</Text>
+      <View style={styles.container2}>
+        <Text style={styles.text1}>Thông báo</Text>
       </View>
-
-      <View style={Styles.container3}>
-        <View style={Styles.container31}>
-          <Image
-            source={require("../../img/chixuan.png")}
-            style={Styles.img2}
-          />
-          <Text style={Styles.text2}>Chí Xuân</Text>
-          <Text style={Styles.text21}>{"\n"}Đã thích video của bạn</Text>
-          <Image
-            source={require("../../img/imgvideo.png")}
-            style={Styles.img3}
-          />
-        </View>
-
-        <View style={Styles.container31}>
-          <Image
-            source={require("../../img/chixuan.png")}
-            style={Styles.img2}
-          />
-          <Text style={Styles.text2}>Chí Xuân</Text>
-          <Text style={Styles.text21}>{"\n"}Đã bình luận video của bạn</Text>
-          <Image
-            source={require("../../img/imgvideo.png")}
-            style={Styles.img3}
-          />
-        </View>
-
-        <View style={Styles.container31}>
-          <Image
-            source={require("../../img/quoctrung.png")}
-            style={Styles.img2}
-          />
-          <Text style={Styles.text2}>Quốc Trung</Text>
-          <Text style={Styles.text21}>{"\n"}Đã thích video của bạn</Text>
-          <Image
-            source={require("../../img/imgvideo.png")}
-            style={Styles.img3}
-          />
-        </View>
-
-        <View style={Styles.container31}>
-          <Image
-            source={require("../../img/quoctrung.png")}
-            style={Styles.img2}
-          />
-          <Text style={Styles.text2}>Chí Xuân</Text>
-          <Text style={Styles.text21}>{"\n"}Đã bình luận video của bạn</Text>
-          <Image
-            source={require("../../img/imgvideo.png")}
-            style={Styles.img3}
-          />
-        </View>
-
-        <View style={Styles.container31}>
-          <Image source={require("../../img/duclam.png")} style={Styles.img2} />
-          <Text style={Styles.text2}>Đức Lâm</Text>
-          <Text style={Styles.text21}>{"\n"}Đã thích video của bạn</Text>
-          <Image
-            source={require("../../img/imgvideo.png")}
-            style={Styles.img3}
-          />
-        </View>
-
-        <View style={Styles.container31}>
-          <Image
-            source={require("../../img/quockhoi.png")}
-            style={Styles.img2}
-          />
-          <Text style={Styles.text2}>Quốc Khôi</Text>
-          <Text style={Styles.text21}>{"\n"}Đã thích video của bạn</Text>
-          <Image
-            source={require("../../img/imgvideo.png")}
-            style={Styles.img3}
-          />
-        </View>
-
-        <View style={Styles.container31}>
-          <Image
-            source={require("../../img/quockhoi.png")}
-            style={Styles.img2}
-          />
-          <Text style={Styles.text2}>Quốc Khôi</Text>
-          <Text style={Styles.text21}>{"\n"}Đã bình luận video của bạn</Text>
-          <Image
-            source={require("../../img/imgvideo.png")}
-            style={Styles.img3}
-          />
-        </View>
-      </View>
+      <FlatList
+        data={data}
+        renderItem={({item})=>{
+            return(
+              <View style={styles.container3}>
+                <View style={styles.container31}>
+                  <Image source={item.img} style={styles.img2}></Image>
+                  <Text style={styles.text2}>{item.userName}</Text>
+                  <Text style={styles.text21}>{"\n"}Đã thích video của bạn</Text>
+                  <Image
+                    source={require("../../img/imgvideo.png")}
+                    style={styles.img3}
+                  />
+                </View>
+                <View style={styles.container31}>
+                  <Image source={item.img} style={styles.img2}></Image>
+                  <Text style={styles.text2}>{item.userName}</Text>
+                  <Text style={styles.text21}>{"\n"}Đã bình luận video của bạn</Text>
+                  <Image
+                    source={require("../../img/imgvideo.png")}
+                    style={styles.img3}
+                  />
+                </View>
+              </View>
+              )
+            }}
+      />  
     </SafeAreaView>
   );
 };
 
-const Styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#FFF",
@@ -127,7 +75,7 @@ const Styles = StyleSheet.create({
     marginTop: 20,
   },
   container3: {
-    marginTop: 20,
+    
   },
   container31: {
     flexDirection: "row",
@@ -135,15 +83,6 @@ const Styles = StyleSheet.create({
     marginTop: 18,
   },
 
-  container41: {
-    height: 50,
-    width: 150,
-    backgroundColor: "#CC0000",
-    justifyContent: "center",
-    marginTop: 40,
-    marginLeft: 120,
-    borderRadius: 20,
-  },
   img1: {
     height: 24,
     width: 24,
@@ -181,12 +120,7 @@ const Styles = StyleSheet.create({
     fontWeight: 400,
     marginLeft: 82,
     position: "absolute",
-  },
-  text3: {
-    textAlign: "center",
-    color: "#FFF",
-    fontSize: 20,
-    fontWeight: 700,
+    paddingTop:10,
   },
 });
 
