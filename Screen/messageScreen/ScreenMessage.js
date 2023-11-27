@@ -6,8 +6,17 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-
+import { useEffect, useState } from "react";
+import { FlatList } from "react-native-web";
 const ScreenMessage = ({ navigation }) => {
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    fetch("https://6562deebee04015769a69d00.mockapi.io/user")
+      .then((response) => response.json())
+      .then((json) => {
+        setData(json);
+      });
+  }, []);
   return (
     <SafeAreaView style={Styles.container}>
       <TouchableOpacity
@@ -21,91 +30,38 @@ const ScreenMessage = ({ navigation }) => {
       <View style={Styles.container2}>
         <Text style={Styles.text1}>Tin nhắn</Text>
       </View>
-
-      <View style={Styles.container3}>
-        <View style={Styles.container31}>
-          <Image
-            source={require("../../img/chixuan.png")}
-            style={Styles.img2}
-          />
-          <View style={Styles.boxChat}>
-            <Text style={Styles.text21}>
-              {"\n"}Chí Xuân đã nhắn tin cho bạn
-            </Text>
-          </View>
-        </View>
-
-        <View style={Styles.container31}>
-          <Image
-            source={require("../../img/chixuan.png")}
-            style={Styles.img2}
-          />
-          <View style={Styles.boxChat}>
-            <Text style={Styles.text21}>
-              {"\n"}Chí Xuân đã nhắn tin cho bạn
-            </Text>
-          </View>
-        </View>
-
-        <View style={Styles.container31}>
-          <Image
-            source={require("../../img/quoctrung.png")}
-            style={Styles.img2}
-          />
-          <View style={Styles.boxChat}>
-            <Text style={Styles.text21}>
-              {"\n"}Quốc Trung đã nhắn tin cho bạn
-            </Text>
-          </View>
-        </View>
-
-        <View style={Styles.container31}>
-          <Image
-            source={require("../../img/quoctrung.png")}
-            style={Styles.img2}
-          />
-          <View style={Styles.boxChat}>
-            <Text style={Styles.text21}>
-              {"\n"}Quốc Trung đã nhắn tin cho bạn
-            </Text>
-          </View>
-        </View>
-
-        <View style={Styles.container31}>
-          <Image source={require("../../img/duclam.png")} style={Styles.img2} />
-          <View style={Styles.boxChat}>
-            <Text style={Styles.text21}>{"\n"}Đức Lâm đã nhắn tin cho bạn</Text>
-          </View>
-        </View>
-
-        <View style={Styles.container31}>
-          <Image
-            source={require("../../img/quockhoi.png")}
-            style={Styles.img2}
-          />
-          <View style={Styles.boxChat}>
-            <Text style={Styles.text21}>
-              {"\n"}Quốc Khôi đã nhắn tin cho bạn
-            </Text>
-          </View>
-        </View>
-
-        <View style={Styles.container31}>
-          <Image
-            source={require("../../img/quockhoi.png")}
-            style={Styles.img2}
-          />
-          <View style={Styles.boxChat}>
-            <Text style={Styles.text21}>
-              {"\n"}Quốc Khôi đã nhắn tin cho bạn
-            </Text>
-          </View>
-        </View>
-      </View>
+      <FlatList
+        data={data}
+        renderItem={({item})=>{
+            return(
+              <View style={Styles.container3}>
+                <TouchableOpacity>
+                <View style={Styles.container31}>
+                  <Image source={item.img} style={Styles.img2}></Image>
+                  <View style={Styles.boxChat}>
+                    <Text style={Styles.text21}>
+                      {"\n"}{item.userName} đã nhắn tin cho bạn
+                    </Text>
+                  </View>
+                </View>
+                </TouchableOpacity>
+                <TouchableOpacity>
+                <View style={Styles.container31}>
+                  <Image source={item.img} style={Styles.img2}></Image>
+                  <View style={Styles.boxChat}>
+                    <Text style={Styles.text21}>
+                      {"\n"}{item.userName} đã nhắn tin cho bạn
+                    </Text>
+                  </View>
+                </View>
+                </TouchableOpacity>
+              </View>
+              )
+            }}
+      />  
     </SafeAreaView>
   );
 };
-
 const Styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -127,7 +83,6 @@ const Styles = StyleSheet.create({
     marginTop: 20,
   },
   container3: {
-    marginTop: 20,
   },
   container31: {
     flexDirection: "row",
