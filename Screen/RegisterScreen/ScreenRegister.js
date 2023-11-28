@@ -8,15 +8,16 @@ const ScreenRegister = ({ navigation }) => {
   const [account, setAccount] = useState("");
   const [password, setPassword] = useState("");
   const [userName, setUserName] = useState("");
+  const [email, setEmail] = useState("");
 
   const onSubmit = () => {
     let formData = {
-      account: account,
+      username: account,
       password: password,
-      userName: userName,
+      email: email,
     };
     axios
-      .post("https://6562deebee04015769a69d00.mockapi.io/user", formData)
+      .post("http://localhost:4400/api/user", formData)
       .then((response) => console.log(response))
       .catch((err) => console.log(err));
   };
@@ -64,10 +65,10 @@ const ScreenRegister = ({ navigation }) => {
         </View>
 
         <View style={StylesSceenRegister.container3_1}>
-          <Text style={StylesSceenRegister.text02}>Tên người dùng</Text>
+          <Text style={StylesSceenRegister.text02}>Email</Text>
           <TextInput
             style={StylesSceenRegister.btn01}
-            onChangeText={(txt2) => setUserName(txt2)}
+            onChangeText={(txt3) => setEmail(txt3)}
           ></TextInput>
         </View>
       </View>
@@ -75,9 +76,9 @@ const ScreenRegister = ({ navigation }) => {
       <View style={StylesSceenRegister.container04}>
         <TouchableOpacity
           style={StylesSceenRegister.button1}
-          onPress={() => {
+          onPress={async () => {
             onSubmit();
-            navigation.navigate("HomeScreenNav");
+            navigation.navigate("LoginScreen");
           }}
         >
           <Text style={StylesSceenRegister.text03}>Đăng ký</Text>

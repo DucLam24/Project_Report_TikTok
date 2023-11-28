@@ -13,13 +13,14 @@ import ScreenNotification from "../Screen/NotificationScreen/ScreenNotification"
 import ScreenMessage from "../Screen/messageScreen/ScreenMessage";
 import ScreenMessage1 from "../Screen/message1Screen/ScreenMessage1";
 import ScreenViewer1 from "../Screen/viewer1Screen/ScreenViewer1";
+import SuccessScreen from "../Screen/sucessScreen/success";
 const Stack = createNativeStackNavigator();
 
 export default function RootApp() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="StartedScreen"
+        initialRouteName="SuccessScreen"
         screenOptions={{ headerShown: false }}
       >
         <Stack.Screen name="LoginScreen" component={ScreenLogin} />
@@ -32,6 +33,8 @@ export default function RootApp() {
         <Stack.Screen name="SlackingScreen" component={ScreenSlacking} />
         <Stack.Screen name="ScreenCreateVideo" component={ScreenCreateVideo} />
         <Stack.Screen name="ScreenMessage" component={ScreenMessage} />
+        <Stack.Screen name="SuccessScreen" component={SuccessScreen} />
+
         <Stack.Screen
           name="ScreenNotification"
           component={ScreenNotification}

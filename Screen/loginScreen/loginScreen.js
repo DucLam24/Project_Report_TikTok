@@ -3,6 +3,8 @@ import Style from "./style.js";
 import { SafeAreaView, TextInput, TouchableOpacity } from "react-native-web";
 // import { data } from "../../component/constants.js";
 import { useEffect, useState } from "react";
+import bcrypt from "bcryptjs";
+// import axios from "axios";
 
 const ScreenLogin = ({ navigation }) => {
   const [errorCheckLogin, setErrorCheckLogin] = useState("");
@@ -12,20 +14,28 @@ const ScreenLogin = ({ navigation }) => {
   const [eyeClick, setEyeClick] = useState(true);
 
   useEffect(() => {
-    fetch("https://6562deebee04015769a69d00.mockapi.io/user")
+    fetch("http://localhost:4400/api/user")
       .then((response) => response.json())
       .then((json) => setData(json))
       .catch((error) => console.error(error));
   }, []);
 
+  const comparePass = async (p1, p2) => {
+    return await bcrypt.compare(p1, p2);
+  };
+
   const checkLogin = (accounts, password) => {
     for (let i = 0; i < data.length; i++) {
-      if (data[i].account === accounts && data[i].password === password) {
+      if (
+        data[i].username === accounts &&
+        comparePass(passWord, data[i].password)
+      ) {
         return true;
       }
     }
     return false;
   };
+
   return (
     <SafeAreaView style={Style.container}>
       <View style={Style.container01}>

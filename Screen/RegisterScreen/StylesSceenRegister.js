@@ -13,8 +13,6 @@ const StylesSceenRegister = StyleSheet.create({
     width: 450,
     justifyContent: "center",
   },
-  container03: {},
-  container04: {},
   image: {
     width: 150,
     height: 150,

@@ -7,9 +7,6 @@ import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { FlatList } from "react-native";
 const HomeScreen = () => {
   const [data, setData] = useState([]);
-  // const [activeVideoIndex, setActiveVideoIndex] = useState(0);
-
-  const bottomTabHeight = useBottomTabBarHeight();
 
   useEffect(() => {
     fetch("http://localhost:4400/api/video")

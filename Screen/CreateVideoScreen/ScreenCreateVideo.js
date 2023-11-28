@@ -3,32 +3,33 @@ import { View, Text, Image, StyleSheet } from "react-native";
 import { SafeAreaView, TextInput, TouchableOpacity } from "react-native-web";
 import { useState } from "react";
 import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
 
 const ScreenCreateVideo = ({ navigation }) => {
-  const [channelName, setChannelName] = useState("");
   const [caption, setCaption] = useState("");
   const [uri, setUri] = useState("");
   const [musicName, setMusicName] = useState("");
-  const [likes, setLikes] = useState(0);
-  const [comments, setComments] = useState(0);
-  const [avatarUri, setAvatarUri] = useState(
-    "https://res.cloudinary.com/dqekolhid/image/upload/v1700705445/bachthunnhien260708-profile_u3g1ii.jpg"
-  );
-
-  const onSubmit = () => {
+  const [avatarUri, setAvatarUri] = useState("");
+  const onSubmit = async () => {
     let formData = {
-      channelName: channelName,
-      caption: caption,
+      id: uuidv4(),
+      channelName: "Đức Lâm channel",
       uri: uri,
+      caption: caption,
       musicName: musicName,
-      likes: likes,
-      comments: comments,
+      likes: 0,
+      comments: 0,
       avatarUri: avatarUri,
     };
-    axios
-      .post("https://6562deebee04015769a69d00.mockapi.io/project", formData)
-      .then((response) => console.log(response))
-      .catch((err) => console.log(err));
+    try {
+      let result = await axios.post(
+        "http://localhost:4400/api/video",
+        formData
+      );
+      console.log(result.response.data);
+    } catch (error) {
+      console.error(error.response.data);
+    }
   };
 
   return (
@@ -49,10 +50,10 @@ const ScreenCreateVideo = ({ navigation }) => {
 
       <View style={StylesSceenRegister.container03}>
         <View style={StylesSceenRegister.container3_1}>
-          <Text style={StylesSceenRegister.text02}> Tên Channel</Text>
+          <Text style={StylesSceenRegister.text02}>Uri video</Text>
           <TextInput
             style={StylesSceenRegister.btn01}
-            onChangeText={(txt) => setChannelName(txt)}
+            onChangeText={(txt2) => setUri(txt2)}
           ></TextInput>
         </View>
 
@@ -65,18 +66,18 @@ const ScreenCreateVideo = ({ navigation }) => {
         </View>
 
         <View style={StylesSceenRegister.container3_1}>
-          <Text style={StylesSceenRegister.text02}>Uri video</Text>
-          <TextInput
-            style={StylesSceenRegister.btn01}
-            onChangeText={(txt2) => setUri(txt2)}
-          ></TextInput>
-        </View>
-
-        <View style={StylesSceenRegister.container3_1}>
           <Text style={StylesSceenRegister.text02}>Tên nhạc</Text>
           <TextInput
             style={StylesSceenRegister.btn01}
             onChangeText={(txt3) => setMusicName(txt3)}
+          ></TextInput>
+        </View>
+
+        <View style={StylesSceenRegister.container3_1}>
+          <Text style={StylesSceenRegister.text02}>avatarUri</Text>
+          <TextInput
+            style={StylesSceenRegister.btn01}
+            onChangeText={(txt) => setAvatarUri(txt)}
           ></TextInput>
         </View>
       </View>
@@ -85,8 +86,8 @@ const ScreenCreateVideo = ({ navigation }) => {
         <TouchableOpacity
           style={StylesSceenRegister.button1}
           onPress={() => {
+            navigation.navigate("SuccessScreen");
             onSubmit();
-            navigation.navigate("HomeScreenNav");
           }}
         >
           <Text style={StylesSceenRegister.text03}>Tạo</Text>
@@ -178,7 +179,7 @@ const StylesSceenRegister = StyleSheet.create({
   img1: {
     height: 24,
     width: 24,
-    tintColor: "#000",
+    tintColor: "#FFF",
   },
 });
 export default ScreenCreateVideo;

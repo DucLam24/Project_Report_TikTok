@@ -11,6 +11,7 @@ const VideoItem = ({ data, isActive }) => {
 
   const s = false;
   const [status, setStatus] = useState(s);
+  // const [likess, setLikess] = useState(0);
   const discAnimatedValue = useRef(new Animated.Value(0)).current;
   const mucsicNoteAnimatedValue1 = useRef(new Animated.Value(0)).current;
   const mucsicNoteAnimatedValue2 = useRef(new Animated.Value(0)).current;
@@ -171,7 +172,9 @@ const VideoItem = ({ data, isActive }) => {
               source={require("../img/heart.png")}
             />
           </TouchableOpacity>
-          <Text style={styles.verticalBarText}>{likes}</Text>
+          <Text style={styles.verticalBarText}>
+            {status ? likes + 1 : likes}
+          </Text>
         </View>
 
         <View style={styles.verticalBarItem}>
