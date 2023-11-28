@@ -11,7 +11,7 @@ import { FlatList } from "react-native-web";
 const ScreenMessage = ({ navigation }) => {
   const [data, setData] = useState([]);
   useEffect(() => {
-    fetch("https://6562deebee04015769a69d00.mockapi.io/user")
+    fetch("https://6565ed57eb8bb4b70ef29963.mockapi.io/user")
       .then((response) => response.json())
       .then((json) => {
         setData(json);
@@ -35,7 +35,16 @@ const ScreenMessage = ({ navigation }) => {
         renderItem={({item})=>{
             return(
               <View style={Styles.container3}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={()=>{navigation.navigate({
+                  name:"ScreenMessage1",
+                  params:{
+                    userName: item.userName,
+                    img : item.img,
+                    txt: item.txt,
+                    txt1: item.txt1,
+                    txt2: item.txt2,
+                  }
+                })}}>
                 <View style={Styles.container31}>
                   <Image source={item.img} style={Styles.img2}></Image>
                   <View style={Styles.boxChat}>
@@ -45,7 +54,16 @@ const ScreenMessage = ({ navigation }) => {
                   </View>
                 </View>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={()=>{navigation.navigate({
+                  name:"ScreenMessage1",
+                  params:{
+                    userName: item.userName,
+                    img : item.img,
+                    txt: item.txt,
+                    txt1: item.txt1,
+                    txt2: item.txt2,
+                  }
+                })}}>
                 <View style={Styles.container31}>
                   <Image source={item.img} style={Styles.img2}></Image>
                   <View style={Styles.boxChat}>
