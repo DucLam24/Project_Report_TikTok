@@ -11,6 +11,8 @@ import ScreenSlacking from "../Screen/slackingScreen/ScreenSlacking";
 import ScreenCreateVideo from "../Screen/CreateVideoScreen/ScreenCreateVideo";
 import ScreenNotification from "../Screen/NotificationScreen/ScreenNotification";
 import ScreenMessage from "../Screen/messageScreen/ScreenMessage";
+import ScreenMessage1 from "../Screen/message1Screen/ScreenMessage1";
+import ScreenViewer1 from "../Screen/viewer1Screen/ScreenViewer1";
 const Stack = createNativeStackNavigator();
 
 export default function RootApp() {
@@ -34,6 +36,8 @@ export default function RootApp() {
           name="ScreenNotification"
           component={ScreenNotification}
         />
+        <Stack.Screen name="ScreenMessage1" component={ScreenMessage1} />
+        <Stack.Screen name="ViewerScreen1" component={ScreenViewer1} />
       </Stack.Navigator>
     </NavigationContainer>
   );
