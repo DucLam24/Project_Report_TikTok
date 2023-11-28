@@ -11,7 +11,7 @@ import { FlatList } from "react-native-web";
 const ScreenNotification = ({ navigation }) => {
   const [data, setData] = useState([]);
   useEffect(() => {
-    fetch("https://6562deebee04015769a69d00.mockapi.io/user")
+    fetch("https://6565ed57eb8bb4b70ef29963.mockapi.io/user")
       .then((response) => response.json())
       .then((json) => {
         // console.log(json);
@@ -38,7 +38,18 @@ const ScreenNotification = ({ navigation }) => {
             return(
               <View style={styles.container3}>
                 <View style={styles.container31}>
-                  <Image source={item.img} style={styles.img2}></Image>
+                  <TouchableOpacity onPress={()=>{navigation.navigate({
+                  name:"ViewerScreen1",
+                  params:{
+                    userName: item.userName,
+                    img : item.img,
+                    follow: item.follow,
+                    follower: item.follower,
+                    like1: item.like1,
+                  }
+                })}}>
+                    <Image source={item.img} style={styles.img2}></Image>
+                  </TouchableOpacity>
                   <Text style={styles.text2}>{item.userName}</Text>
                   <Text style={styles.text21}>{"\n"}Đã thích video của bạn</Text>
                   <Image
@@ -47,7 +58,18 @@ const ScreenNotification = ({ navigation }) => {
                   />
                 </View>
                 <View style={styles.container31}>
-                  <Image source={item.img} style={styles.img2}></Image>
+                <TouchableOpacity onPress={()=>{navigation.navigate({
+                  name:"ViewerScreen1",
+                  params:{
+                    userName: item.userName,
+                    img : item.img,
+                    follow: item.follow,
+                    follower: item.follower,
+                    like1: item.like1,
+                  }
+                })}}>
+                    <Image source={item.img} style={styles.img2}></Image>
+                  </TouchableOpacity>
                   <Text style={styles.text2}>{item.userName}</Text>
                   <Text style={styles.text21}>{"\n"}Đã bình luận video của bạn</Text>
                   <Image
