@@ -3,7 +3,7 @@ import Style from "./style.js";
 import { SafeAreaView, TextInput, TouchableOpacity } from "react-native-web";
 // import { data } from "../../component/constants.js";
 import { useEffect, useState } from "react";
-import bcrypt from "bcryptjs";
+import bcrypt, { compareSync } from "bcryptjs";
 // import axios from "axios";
 
 const ScreenLogin = ({ navigation }) => {
@@ -20,15 +20,11 @@ const ScreenLogin = ({ navigation }) => {
       .catch((error) => console.error(error));
   }, []);
 
-  const comparePass = async (p1, p2) => {
-    return await bcrypt.compare(p1, p2);
-  };
-
   const checkLogin = (accounts, password) => {
     for (let i = 0; i < data.length; i++) {
       if (
         data[i].username === accounts &&
-        comparePass(passWord, data[i].password)
+        compareSync(password, data[i].password)
       ) {
         return true;
       }
@@ -87,7 +83,9 @@ const ScreenLogin = ({ navigation }) => {
           onPress={() => {
             checkLogin(userName, passWord)
               ? navigation.navigate("HomeScreenNav")
-              : setErrorCheckLogin("Login fail");
+              : (setErrorCheckLogin("Login fail"),
+                setUserName(""),
+                setPassWord(""));
           }}
         >
           <Text style={Style.text03}>Đăng nhập</Text>
