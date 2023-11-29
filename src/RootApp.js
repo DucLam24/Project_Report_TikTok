@@ -20,7 +20,7 @@ export default function RootApp() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="SuccessScreen"
+        initialRouteName="StartedScreen"
         screenOptions={{ headerShown: false }}
       >
         <Stack.Screen name="LoginScreen" component={ScreenLogin} />

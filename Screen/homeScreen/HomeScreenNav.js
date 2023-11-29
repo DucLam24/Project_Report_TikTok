@@ -1,6 +1,5 @@
 import { StyleSheet, Image, TouchableOpacity } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-// import { NavigationContainer } from "@react-navigation/native";
 import ScreenViewer from "../viewerScreen/ScreenViewer";
 
 import HomeScreen from "./HomeScreen";
